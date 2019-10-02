@@ -199,6 +199,7 @@ static inline void rtc_write_sync_lp(void __iomem *ioaddr)
  *
  * @return  0 if successful; non-zero otherwise.
  */
+static unsigned long g_alarm_time;
 static int rtc_update_alarm(struct device *dev, struct rtc_time *alrm)
 {
 	struct rtc_drv_data *pdata = dev_get_drvdata(dev);
@@ -340,6 +341,7 @@ static int mxc_rtc_ioctl(struct device *dev, unsigned int cmd,
 	u32 lp_cr;
 	u64 time_47bit;
 	int retVal;
+	unsigned int tmp;
 
 	switch (cmd) {
 	case RTC_AIE_OFF:
@@ -501,7 +503,6 @@ static int mxc_rtc_set_time(struct device *dev, struct rtc_time *tm)
  *
  * @return  0 if successful; non-zero otherwise.
  */
-static unsigned long g_alarm_time;
 static int mxc_rtc_read_alarm(struct device *dev, struct rtc_wkalrm *alrm)
 {
 #if 0	// Joseph 20110523, remove rtc
